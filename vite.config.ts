@@ -24,7 +24,7 @@ export default defineConfig((mode: ConfigEnv) => {
         imports: ["vue", "vue-router", "pinia"],
       }),
     ],
-    define: { "process.env": {} },
+    define: { "process.env": define: { 'process.env': env }, },
     test: {
       globals: true,
       environment: "happy-dom",
@@ -54,5 +54,5 @@ export default defineConfig((mode: ConfigEnv) => {
       },
     },
   
-  });
+  }
 });
