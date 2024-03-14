@@ -69,24 +69,24 @@ const createCompletion = async () => {
   //   snackbarStore.showErrorMessage("请先输入API KEY");
   //   return;
   // }
+  const proxyUrl = chatGPTStore.proxyUrl
+    ? chatGPTStore.proxyUrl
+    : "https://openai.wndbac.cn";
 
   try {
     // Create a completion (axios is not used here because it does not support streaming)
-    const completion = await fetch(
-      `${chatGPTStore.proxyUrl}/v1/chat/completions`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${chatGPTStore.getApiKey}`,
-        },
-        method: "POST",
-        body: JSON.stringify({
-          messages: requestMessages.value,
-          model: chatGPTStore.model,
-          stream: true,
-        }),
-      }
-    );
+    const completion = await fetch(`${proxyUrl}/v1/chat/completions`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${chatGPTStore.getApiKey}`,
+      },
+      method: "POST",
+      body: JSON.stringify({
+        messages: requestMessages.value,
+        model: chatGPTStore.model,
+        stream: true,
+      }),
+    });
 
     // Handle errors
     if (!completion.ok) {
@@ -226,7 +226,7 @@ const inputRow = ref(1);
           @keydown="handleKeydown"
           no-resize
           :rows="inputRow"
-          @focus="inputRow = 3"
+          @focus="inputRow = 12"
           @blur="inputRow = 1"
         >
         </v-textarea>

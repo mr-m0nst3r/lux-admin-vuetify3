@@ -1,13 +1,13 @@
 <!--
-* @Component: 
+* @Component:
 * @Maintainer: J.K. Yang
-* @Description: 
+* @Description:
 -->
 <script setup lang="ts">
 import { searchPhotosApi } from "@/api/unsplashApi";
 import CopyLabel from "@/components/common/CopyLabel.vue";
 import moment from "moment";
-
+import type { Photo } from "./types";
 const loading = ref(true);
 const totalRows = ref(0);
 
@@ -20,8 +20,8 @@ const queryOptions = reactive({
 const headers = [
   { title: "ID", key: "id" },
   { title: "USER", key: "user" },
-  { title: "COLOR", key: "color", align: "center" },
-  { title: "SIZE", key: "size", align: "center" },
+  { title: "COLOR", key: "color" },
+  { title: "SIZE", key: "size" },
   { title: "DESCRIPTION", key: "alt_description" },
   { title: "THUMB", key: "thumb" },
   { title: "DOWNLOAD", key: "download" },
@@ -30,7 +30,7 @@ const headers = [
   { title: "CREATED", key: "created_at" },
 ];
 
-const photosList = ref([]);
+const photosList = ref<Photo[]>([]);
 
 const getPhotos = async () => {
   loading.value = true;
@@ -50,6 +50,7 @@ const getPhotos = async () => {
       likes: photo.likes,
       tags: photo.tags,
       created_at: moment(photo.created_at).format("YYYY/MM/DD"),
+      created_at2: moment(photo.created_at).format("YYYY/MM/DD"),
     };
   });
 
@@ -122,35 +123,35 @@ const previewImg = (url) => {
         >
           <template v-slot:item="{ item }">
             <tr>
-              <td>{{ item.columns.id }}</td>
+              <td>{{ item.id }}</td>
               <td class="font-weight-bold">
                 <v-avatar size="30" class="mr-2">
-                  <img :src="item.columns.user.profile_image.small" alt="alt" />
+                  <img :src="item.user.profile_image.small" alt="alt" />
                 </v-avatar>
-                <CopyLabel :text="item.columns.user.username" />
+                <CopyLabel :text="item.user.username" />
               </td>
 
               <td class="text-center">
-                <v-chip size="small" :color="item.columns.color">
-                  <CopyLabel :text="item.columns.color" />
+                <v-chip size="small" :color="item.color">
+                  <CopyLabel :text="item.color" />
                 </v-chip>
               </td>
-              <td class="text-center">{{ item.columns.size }}</td>
+              <td class="text-center">{{ item.size }}</td>
 
-              <td>{{ item.columns.alt_description }}</td>
+              <td>{{ item.alt_description }}</td>
               <td class="pa-2">
                 <v-img
-                  :src="item.columns.thumb.thumb"
+                  :src="item.thumb.thumb"
                   height="100"
                   width="160"
                   cover
                   class="rounded-lg v-card--link"
-                  @click="previewImg(item.columns.thumb.regular)"
+                  @click="previewImg(item.thumb.regular)"
                 />
               </td>
 
               <td>
-                <v-btn variant="flat" icon @click="downloadPhoto(item.columns)">
+                <v-btn variant="flat" icon @click="downloadPhoto(item)">
                   <img
                     width="26"
                     src="https://img.icons8.com/fluency/48/null/down.png"
@@ -160,15 +161,15 @@ const previewImg = (url) => {
               <td>
                 <v-chip
                   size="small"
-                  :color="getLikesColor(item.columns.likes)"
+                  :color="getLikesColor(item.likes)"
                   class="font-weight-bold"
                 >
-                  {{ item.columns.likes }}</v-chip
+                  {{ item.likes }}</v-chip
                 >
               </td>
               <td>
                 <v-chip
-                  v-for="tag in item.columns.tags"
+                  v-for="tag in item.tags"
                   variant="outlined"
                   color="grey"
                   size="small"
@@ -178,7 +179,10 @@ const previewImg = (url) => {
                 </v-chip>
               </td>
               <td>
-                {{ item.columns.created_at }}
+                {{ item.created_at }}
+              </td>
+              <td>
+                {{ item.created_at2 }}
               </td>
             </tr>
           </template>

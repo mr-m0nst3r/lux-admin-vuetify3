@@ -37,6 +37,24 @@
 
 Built upon the elegant themes of Vuetify, we have established a clear and efficient project structure, integrating the latest technology frameworks. This project aims to address a wide range of common technical requirements and features, while incorporating an AI assistant for a more intelligent experience. Additionally, we ensure that all pages are adaptive across multiple devices, achieving a seamless cross-platform compatibility.
 
+## 📖Other Versions
+
+SPA Full Version: [lux-vuetify3](https://github.com/yangjiakai/lux-nuxt3)
+
+SPA Simplified i18n Version[lux-vuetify3-i18n](https://github.com/yangjiakai/vuetify3-lux-admin-template-i18n)
+
+SPA Simplified chinese Version[lux-vuetify3-zh](https://github.com/yangjiakai/vuetify3-lux-admin-template-zh)
+
+Nuxt3 version:
+
+Nuxt3 Full Version [lux-nuxt3](https://github.com/yangjiakai/lux-nuxt3)
+
+Nuxt3 Simplified Version [lux-nuxt3-template](https://github.com/yangjiakai/lux-nuxt3-template)
+
+## 📖Documents
+
+- 📖 [Document 1.0 Chinese](https://www.craft.me/s/tAMVv4hUxZIH6G)
+
 ## 📚Features
 
 - 📖 [Vue 3.2](https://github.com/vuejs/core)
@@ -108,9 +126,9 @@ git clone https://github.com/yangjiakai/lux-admin-vuetify3.git
 
 cd lux-admin-vuetify3
 
-npm install
+yarn install
 
-npm run dev
+yarn dev
 ```
 
 ### 🔑Set ApiKey
